@@ -9,11 +9,24 @@ There are two steps:
 * Build the DDL table schema 
 * Load the data through the SerDe
 
-Sample JSON feed files:
+**Sample JSON feed files**
 
 * persons.jsonfeed - Simple sample with nested object and array
-* pull_request_comments.jsonfeed - From Github Torrent project
+* pull\_request_comments.jsonfeed - Converted BSON file from Github Torrent project
 * tweets.jsonfeed - Twitter tweets - API v. 1.0
+
+**Scripts**
+
+run.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES - Generates DDL 
+
+* TABLE_NAME - name of table in create statement
+* HDFS_DIRECTORY - value of LOCATION in create statement
+* JSON_FILES - list of JSON files to process.  Each line is expected to be a legal JSON document - hence the extension 'jsonfeed'.
+
+sample.sh - Generates Twitter tweets DDL 
+```
+  run.sh tweets /data/tweets data/tweets.jsonfeed
+```
 
 # Build and Run
 
@@ -29,7 +42,8 @@ In the shell:
 In Hive:
 
 ```
-	add jar $MY_DIR/target/amm-serde-json-1.0-SNAPSHOT.jar ;
+	add jar $MY_DIR/target/amm-serde-json-1.0-SNAPSHOT.jar ; 
+       or add to your Hive lib directory
 
 	create external table persons (...) - Paste the contents of tweets.ddl
 
@@ -325,7 +339,7 @@ LOCATION '/data/tweets';
 
 # TODOs
 
-* Investigate more about all Hive reserved keywords
-* Externalize keywords into file this is loaded as resource
+* Find canonical reference for Hive reserved keywords.
+* Externalize keywords into file that is loaded as resource.
 * Allow configurable name mapping strategies, e.g. backtick, etc.
 
