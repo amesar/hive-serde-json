@@ -25,35 +25,35 @@ run.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES - Generates DDL
 
 sample.sh - Generates Twitter tweets DDL 
 ```
-  run.sh tweets /data/tweets data/tweets.jsonfeed
+run.sh tweets /data/tweets data/tweets.jsonfeed
 ```
 
 # Build and Run
 
 In the shell:
 ```
-  mvn package
-  sample.sh | tee tweets.ddl
-  hdfs dfs -mkdir /data/persons
-  hdfs dfs -put data/persons.jsonfeed /data/persons
+mvn package
+sample.sh | tee tweets.ddl
+hdfs dfs -mkdir /data/persons
+hdfs dfs -put data/persons.jsonfeed /data/persons
 
 ```
 
 In Hive:
 
 ```
-	add jar $MY_DIR/target/amm-serde-json-1.0-SNAPSHOT.jar ; 
-       or add to your Hive lib directory
+add jar $MY_DIR/target/amm-serde-json-1.0-SNAPSHOT.jar ; 
+   or add to your Hive lib directory
 
-	create external table persons (...) - Paste the contents of tweets.ddl
+create external table persons (...) - Paste the contents of tweets.ddl
 
-	select * from persons ;
+select * from persons ;
 
-    name   yob   status  address_city  address_state  ids_0  ids_1
-    john   2000  true    seattle       WA             10     11
-    mary   2001  false   miami         FL             20     21
-    juan   1990  true    Hermosillo    Sonora         10     11
-    maria  1991  false   Bella Unión   Artigas        20     21
+name   yob   status  address_city  address_state  ids_0  ids_1
+john   2000  true    seattle       WA             10     11
+mary   2001  false   miami         FL             20     21
+juan   1990  true    Hermosillo    Sonora         10     11
+maria  1991  false   Bella Unión   Artigas        20     21
 
 ```
 
