@@ -3,24 +3,24 @@ Hive SerDe for Flattened JSON
 
 # Overview
 
-This SerDe takes a JSON document and flattens all nested objects to one level.
-There are two steps:
+This SerDe takes a file of JSON documents and flattens all nested objects to one level.
+There are two steps to the process:
 
-* Build the DDL table schema 
-* Load the data through the SerDe
+* Build the Hive DDL table schema.
+* Load the data through the SerDe.
 
 **Sample JSON feed files**
 
-* persons.jsonfeed - Simple sample with nested object and array
-* pull\_request_comments.jsonfeed - Converted BSON file from Github Torrent project
-* tweets.jsonfeed - Twitter tweets - API v. 1.0
+* persons.jsonfeed - Simple sample with nested object and array.
+* pull\_request_comments.jsonfeed - Converted BSON file from Github's [GHTorrent](http://ghtorrent.org) project.
+* tweets.jsonfeed - [Twitter tweets](https://dev.twitter.com/docs/platform-objects/tweets) - Note: API version 1.0.
 
 **Scripts**
 
 run.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES - Generates DDL 
 
-* TABLE_NAME - name of table in create statement
-* HDFS_DIRECTORY - value of LOCATION in create statement
+* TABLE_NAME - name of table in create statement.
+* HDFS_DIRECTORY - value of LOCATION in create statement.
 * JSON_FILES - list of JSON files to process.  Each line is expected to be a legal JSON document - hence the extension 'jsonfeed'.
 
 sample.sh - Generates Twitter tweets DDL 
