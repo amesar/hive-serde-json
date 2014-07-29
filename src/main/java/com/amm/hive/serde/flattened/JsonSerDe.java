@@ -2,7 +2,6 @@ package com.amm.hive.serde.flattened;
 
 import java.util.*;
 import java.io.*;
-//import org.apache.log4j.Logger;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hive.serde.serdeConstants;
 import org.apache.hadoop.hive.serde2.SerDe;
@@ -17,7 +16,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 
 public class JsonSerDe implements SerDe {
-	//private static final Logger logger = Logger.getLogger(JsonSerDe.class);
 	private StructTypeInfo rowTypeInfo;
 	private ObjectInspector objectInspector;
 	private List<Object> row = new ArrayList<>();

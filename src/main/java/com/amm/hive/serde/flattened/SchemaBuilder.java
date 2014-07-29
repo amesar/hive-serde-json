@@ -2,7 +2,6 @@ package com.amm.hive.serde.flattened;
 
 import java.util.*;
 import java.io.*;
-import org.apache.log4j.Logger;
 
 /**
  * Builds Hive schema for JSON files.
@@ -18,10 +17,10 @@ public class SchemaBuilder {
 		new SchemaBuilder().process(args);
 	}
 
-	void process(String [] args) throws Exception {
+	private void process(String [] args) throws Exception {
 		init();
 		if (args.length < 3) {
-			error("Expecting: TABLE_NAME, LOCATION and FILEs");
+			error("Usage: SchemaBuilder TABLE_NAME LOCATION FILEs");
 			return ;
 		}
 		tableName = args[0];
@@ -31,33 +30,29 @@ public class SchemaBuilder {
 		}
 	}
 
-	void process(File file) throws Exception {
-		BufferedReader reader = null ;
+	private void process(File file) throws Exception {
 		Map<String, Class> columns = new LinkedHashMap<> ();
-		try {
-			reader = new BufferedReader(new FileReader(file));
-			String line ;
-			for (int lineNumber=0 ; (line = reader.readLine()) != null ; lineNumber++ ) {
-				process(line,columns);
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			String record ;
+			while ((record = reader.readLine()) != null ) {
+				process(record,columns);
 			}
-		} finally {
-			if (reader != null) reader.close();
 		}
 		//dump(columns);
 		createDdl(columns);
 	}
 
-	void process(String line, Map<String, Class> mapAll) throws IOException {
-		Map<String, Object> map = jsonProcessor.process(line);
-		for (Map.Entry<String,Object> entry : map.entrySet()) {
+	private void process(String record, Map<String, Class> allColumns) throws IOException {
+		Map<String, Object> recordColumns = jsonProcessor.process(record);
+		for (Map.Entry<String,Object> entry : recordColumns.entrySet()) {
 			String key = entry.getKey();
 			Object value = entry.getValue();
 			if (value == null) {
 				//warn("Null value for "+key);
 			} else { 
-				Class type = mapAll.get(key);
+				Class type = allColumns.get(key);
 				if (type == null) {
-					mapAll.put(key,value.getClass());
+					allColumns.put(key,value.getClass());
 				} else if (type != value.getClass()) {
 					warn("Column "+key+" has clashing types: "+type.getName()+" "+value.getClass().getName());
 				}

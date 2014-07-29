@@ -1,15 +1,13 @@
 package com.amm.hive.serde.flattened;
 
 import java.util.*;
-import org.apache.log4j.Logger;
 
 /**
  * Flattens a nested map of objects to one level.
  */
 public class Flattener {
-	private static final Logger logger = Logger.getLogger(Flattener.class);
 	private String separator = "_" ;
-	private static final char BACKTICK = '`' ;
+	//private static final char BACKTICK = '`' ;
 
 	public Flattener() {
 	}
