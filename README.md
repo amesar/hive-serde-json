@@ -3,7 +3,7 @@ Hive SerDe for Flattened JSON
 
 # Overview
 
-This SerDe takes a file of JSON documents and flattens all nested objects to one level.
+This SerDe processes a file of JSON documents and flattens all nested objects to one level.
 There are two steps to the process:
 
 * Build the Hive DDL table schema.
@@ -17,13 +17,13 @@ There are two steps to the process:
 
 **Scripts**
 
-run.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES - Generates DDL 
+build-schema.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES - Generates DDL 
 
 * TABLE_NAME - name of table in create statement.
 * HDFS_DIRECTORY - value of LOCATION in create statement.
 * JSON_FILES - list of JSON files to process.  Each line is expected to be a legal JSON document - hence the extension 'jsonfeed'.
 
-sample.sh - Generates Twitter tweets DDL 
+sample-build-schema.sh - Generates Twitter tweets DDL 
 ```
 run.sh tweets /data/tweets data/tweets.jsonfeed
 ```
@@ -33,10 +33,9 @@ run.sh tweets /data/tweets data/tweets.jsonfeed
 In the shell:
 ```
 mvn package
-sample.sh | tee tweets.ddl
+sample-build-schema.sh | tee tweets.ddl
 hdfs dfs -mkdir /data/persons
 hdfs dfs -put data/persons.jsonfeed /data/persons
-
 ```
 
 In Hive:
@@ -54,7 +53,6 @@ john   2000  true    seattle       WA             10     11
 mary   2001  false   miami         FL             20     21
 juan   1990  true    Hermosillo    Sonora         10     11
 maria  1991  false   Bella Unión   Artigas        20     21
-
 ```
 
 # Simple Sample
