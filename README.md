@@ -3,11 +3,12 @@ Hive SerDe for Flattened JSON
 
 # Overview
 
-This SerDe processes a file of JSON documents and flattens all nested objects to one level.
+_com.amm.hive.serde.flattened.JsonSerDe_ processes a file of JSON documents and flattens all nested objects and arrays to one level.
+
 There are two steps to the process:
 
-* Build the Hive DDL table schema.
-* Load the data through the SerDe.
+* Build the Hive DDL table schema and load into Hive.
+* Create Hive table using the SerDe.
 
 **Sample JSON feed files**
 
@@ -23,9 +24,13 @@ build-schema.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES - Generates DDL
 * HDFS_DIRECTORY - value of LOCATION in create statement.
 * JSON_FILES - list of JSON files to process.  Each line is expected to be a legal JSON document - hence the extension 'jsonfeed'.
 
-sample-build-schema.sh - Generates Twitter tweets DDL 
+sample-build-schema.sh - Generates Hive DDL for persons.jsonfeed.
+
+Examples:
 ```
-run.sh tweets /data/tweets data/tweets.jsonfeed
+build-schema.sh persons /tables/persons data/persons.jsonfeed
+build-schema.sh tweets /tables/tweets data/tweets.jsonfeed
+build-schema.sh pull_request_comments /tables/pull_request_comments data/pull_request_comments.jsonfeed
 ```
 
 # Build and Run
@@ -33,9 +38,9 @@ run.sh tweets /data/tweets data/tweets.jsonfeed
 In the shell:
 ```
 mvn package
-sample-build-schema.sh | tee tweets.ddl
-hdfs dfs -mkdir /data/persons
-hdfs dfs -put data/persons.jsonfeed /data/persons
+sample-build-schema.sh | tee persons.ddl
+hdfs dfs -mkdir /tables/persons
+hdfs dfs -put data/persons.jsonfeed /tables/persons
 ```
 
 In Hive:
@@ -44,7 +49,7 @@ In Hive:
 add jar $MY_DIR/target/amm-serde-json-1.0-SNAPSHOT.jar ; 
    or add to your Hive lib directory
 
-create external table persons (...) - Paste the contents of tweets.ddl
+create external table persons (...) - Paste the contents of persons.ddl
 
 select * from persons ;
 
@@ -55,9 +60,11 @@ juan   1990  true    Hermosillo    Sonora         10     11
 maria  1991  false   Bella Unión   Artigas        20     21
 ```
 
-# Simple Sample
+# JSON and DDL for Samples
 
-## JSON File
+## Persons Sample
+
+### JSON File
 
 ```
 { "name" : "john", "yob" : 2000, "status" : true,  "address" : { "city": "seattle", "state": "WA" }, "ids": [ 10, 11 ] }
@@ -66,7 +73,7 @@ maria  1991  false   Bella Unión   Artigas        20     21
 { "name" : "maria", "yob" : 1991, "status" : false, "address" : { "city": "Bella Unión" , "state": "Artigas"}, "ids": [ 20, 21 ]  }
 ```
 
-## JSON - Formatted sample line
+### JSON - Formatted sample line
 ```
 {
   "name" : "john",
@@ -80,7 +87,7 @@ maria  1991  false   Bella Unión   Artigas        20     21
 }
 ```
 
-## DDL
+### DDL
 ```
 CREATE EXTERNAL TABLE person (
   name string,
@@ -92,12 +99,12 @@ CREATE EXTERNAL TABLE person (
   ids_1 int
 )
 ROW FORMAT SERDE 'com.amm.hive.serde.flattened.JsonSerDe'
-LOCATION '/data/persons';
+LOCATION '/tables/persons';
 ```
 
-# GHTorrent Sample
+## GHTorrent Sample
 
-## JSON - Formatted sample line
+### JSON - Formatted sample line
 ```
 {
   "_id" : {
@@ -152,7 +159,7 @@ LOCATION '/data/persons';
 }
 ```
 
-## DDL
+### DDL
 ```
 CREATE EXTERNAL TABLE foo (
   id___oid string,
@@ -194,12 +201,12 @@ CREATE EXTERNAL TABLE foo (
   pullreq_id int
 )
 ROW FORMAT SERDE 'com.amm.hive.serde.flattened.JsonSerDe'
-LOCATION '/data/ghtorrent';
+LOCATION '/tables/ghtorrent';
 ```
 
-# Twitter Tweets Sample
+## Twitter Tweets Sample
 
-## JSON - Formatted sample line
+### JSON - Formatted sample line
 ```
 {
     "contributors": null, 
@@ -268,7 +275,7 @@ LOCATION '/data/ghtorrent';
 }
 ```
 
-## DDL
+### DDL
 ```
 CREATE EXTERNAL TABLE foo (
   text string,
@@ -332,7 +339,7 @@ CREATE EXTERNAL TABLE foo (
   in_reply_to_user_id_str string
 )
 ROW FORMAT SERDE 'com.amm.hive.serde.flattened.JsonSerDe'
-LOCATION '/data/tweets';
+LOCATION '/tables/tweets';
 ```
 
 # TODOs
