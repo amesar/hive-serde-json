@@ -169,7 +169,7 @@ LOCATION '/tables/persons';
 
 ### DDL
 ```
-CREATE EXTERNAL TABLE foo (
+CREATE EXTERNAL TABLE pull_request_comments (
   id___oid string,
   url string,
   id_ int,
@@ -209,7 +209,7 @@ CREATE EXTERNAL TABLE foo (
   pullreq_id int
 )
 ROW FORMAT SERDE 'com.amm.hive.serde.flattened.JsonSerDe'
-LOCATION '/tables/ghtorrent';
+LOCATION '/tables/pull_request_comments';
 ```
 
 ## Twitter Tweets Sample
@@ -285,7 +285,7 @@ LOCATION '/tables/ghtorrent';
 
 ### DDL
 ```
-CREATE EXTERNAL TABLE foo (
+CREATE EXTERNAL TABLE tweets (
   text string,
   created_at string,
   favorited boolean,
