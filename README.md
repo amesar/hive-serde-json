@@ -8,28 +8,36 @@ _com.amm.hive.serde.flattened.JsonSerDe_ processes a file of JSON documents and 
 There are two steps to the process:
 
 * Build the Hive DDL table schema and load into Hive.
-* Create Hive table using the SerDe.
+* Create the Hive table using the SerDe.
 
-**Sample JSON feed files**
+## Sample JSON feed files
 
-* persons.jsonfeed - Simple sample with nested object and array.
-* pull\_request_comments.jsonfeed - Converted BSON file from Github's [GHTorrent](http://ghtorrent.org) project.
-* tweets.jsonfeed - [Twitter tweets](https://dev.twitter.com/docs/platform-objects/tweets) - Note: API version 1.0.
+* [persons.jsonfeed](data/persons.jsonfeed) - Simple sample with nested object and array.
+* [pull\_request_comments.jsonfeed](data/pull_request_comments.jsonfeed)  - Converted BSON file from Github's [GHTorrent](http://ghtorrent.org) project.
+* [tweets.jsonfeed](data/tweets.jsonfeed) - [Twitter tweets](https://dev.twitter.com/docs/platform-objects/tweets) - Note: API version 1.0.
 
-**Scripts**
+## Scripts
 
-build-schema.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES - Generates DDL 
+### build-schema.sh 
+
+Generates Hive DDL.
+
+build-schema.sh TABLE\_NAME HDFS\_DIRECTORY JSON\_FILES 
 
 * TABLE_NAME - name of table in create statement.
 * HDFS_DIRECTORY - value of LOCATION in create statement.
 * JSON_FILES - list of JSON files to process.  Each line is expected to be a legal JSON document - hence the extension 'jsonfeed'.
 
-sample-build-schema.sh - Generates Hive DDL for persons.jsonfeed.
+### sample-build-schema.sh 
 
-Examples:
+Generates Hive DDL for persons.jsonfeed.
+
+### Examples
 ```
 build-schema.sh persons /tables/persons data/persons.jsonfeed
+
 build-schema.sh tweets /tables/tweets data/tweets.jsonfeed
+
 build-schema.sh pull_request_comments /tables/pull_request_comments data/pull_request_comments.jsonfeed
 ```
 
