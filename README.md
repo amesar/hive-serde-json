@@ -59,7 +59,7 @@ add jar target/amm-serde-json-1.0-SNAPSHOT.jar ;
 
 // Paste the contents of persons.ddl
 
-CREATE EXTERNAL TABLE person (
+CREATE EXTERNAL TABLE persons (
   name string,
   yob int,
   status boolean,
@@ -109,7 +109,7 @@ maria  1991  false   Bella Unión   Artigas        20     21
 
 ### DDL
 ```
-CREATE EXTERNAL TABLE person (
+CREATE EXTERNAL TABLE persons (
   name string,
   yob int,
   status boolean,
