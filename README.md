@@ -54,10 +54,22 @@ hdfs dfs -put data/persons.jsonfeed /tables/persons
 In Hive:
 
 ```
-add jar $MY_DIR/target/amm-serde-json-1.0-SNAPSHOT.jar ; 
+add jar target/amm-serde-json-1.0-SNAPSHOT.jar ; 
    or add to your Hive lib directory
 
-create external table persons (...) - Paste the contents of persons.ddl
+// Paste the contents of persons.ddl
+
+CREATE EXTERNAL TABLE person (
+  name string,
+  yob int,
+  status boolean,
+  address_city string,
+  address_state string,
+  ids_0 int,
+  ids_1 int
+  )
+  ROW FORMAT SERDE 'com.amm.hive.serde.flattened.JsonSerDe'
+  LOCATION '/tables/persons';
 
 select * from persons ;
 
