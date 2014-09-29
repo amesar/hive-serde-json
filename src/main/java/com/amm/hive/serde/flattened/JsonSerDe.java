@@ -15,6 +15,9 @@ import org.apache.hadoop.hive.serde2.typeinfo.TypeInfoUtils;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 
+/**
+ * Ye old SerDe.
+ */
 public class JsonSerDe implements SerDe {
 	private StructTypeInfo rowTypeInfo;
 	private ObjectInspector objectInspector;
@@ -47,7 +50,6 @@ public class JsonSerDe implements SerDe {
 		}
 		return row;
 	}
-
 
 	@Override
 	public Writable serialize(Object obj, ObjectInspector objectInspector) throws SerDeException {

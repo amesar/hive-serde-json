@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Builds Hive schema for JSON files.
+ * Standalone main program that generates Hive schema for JSON files.
  */
 public class SchemaBuilder {
 	private JsonProcessor jsonProcessor = new JsonProcessor();
@@ -31,7 +31,7 @@ public class SchemaBuilder {
 	}
 
 	private void process(File file) throws Exception {
-		Map<String, Class> columns = new LinkedHashMap<> ();
+		Map<String, Class> columns = new LinkedHashMap<>();
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			String record ;
 			while ((record = reader.readLine()) != null ) {

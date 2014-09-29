@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
- * Reads a JSON documents and returns a map flattened of flattened objects.
+ * Processes JSON document and returns a map of flattened objects.
  */
 public class JsonProcessor {
 	private final ObjectMapper mapper = new ObjectMapper();
