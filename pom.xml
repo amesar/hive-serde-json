@@ -9,9 +9,9 @@
   <name>amm-serde-json</name>
 
   <properties>
-    <faster.xml.version>2.3.3</faster.xml.version>
-    <hive.version>0.13.0</hive.version>
-    <hadoop.version>2.3.0</hadoop.version>
+    <faster.xml.version>2.5.4</faster.xml.version>
+    <hive.version>2.0.0</hive.version>
+    <hadoop.version>2.7.2</hadoop.version>
   </properties>
 
   <build>
@@ -50,6 +50,7 @@
   <dependencies>
 
     <!-- Basic  -->
+
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -72,6 +73,7 @@
       <version>${hive.version}</version>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-common</artifactId>
@@ -79,18 +81,5 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-
-  <repositories>
-    <repository>
-      <id>cloudera</id>
-      <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
 </project>
