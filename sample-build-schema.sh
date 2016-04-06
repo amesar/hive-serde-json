@@ -1,3 +1,3 @@
 
-build-schema.sh persons /data/persons data/persons.jsonfeed 
+./build-schema.sh persons /data/persons data/persons.jsonfeed 
 
