@@ -1,2 +1,4 @@
 { "name" : "john", "yob" : 2000, "status" : true,  "address" : { "city": "seattle", "state": "WA" }, "ids": [ 10, 11 ] }
 { "name" : "mary", "yob" : 2001, "status" : false, "address" : { "city": "miami" , "state": "FL"}, "ids": [ 20, 21 ]  }
+{ "name" : "juan", "yob" : 1990, "status" : true,  "address" : { "city": "Hermosillo", "state": "Sonora" }, "ids": [ 10, 11 ] }
+{ "name" : "maria", "yob" : 1991, "status" : false, "address" : { "city": "Bella Unión" , "state": "Artigas"}, "ids": [ 20, 21 ]  }
